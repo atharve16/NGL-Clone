@@ -1,1 +1,1 @@
-Practicing PHP by making small project -> #NGL-Clone
+Practicing PHP by making small project -> NGL-Clone
