@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@ngl.jedlik.budapest</title>
+    <link rel="stylesheet" href="https://ngl.link/stylesheets/normalize.css">
+    <link rel="stylesheet" href="https://ngl.link/stylesheets/style.css?v=3">
+    <style>
+        @font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }
+        .comment {
+            resize: none;
+            height: 60px;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="mainform" class="form" method="post" action="sent.php">
+            <div class="bubble">
+                <div class="header">
+                    <div class="pfp-container">
+                        <img class="pfp" src="pic.jpg">
+                    </div>
+                    <div class="user-container">
+                        <div class="username">@_atharve</div>
+                        <div class="prompt">send me anonymous messages!</div>
+                    </div>
+                </div>
+                <div class="textarea-container form-group">
+                    <div class="top-right-corner"></div>
+                    <div class="top-left-corner"></div>
+                    <div class="dice-button" onclick="dice()">🎲</div>
+                    <textarea id="TestArea" oninput="disappearer(false)" placeholder="send me anonymous messages..." name="text9" autocomplete="off" type="text" required></textarea>
+                </div>
+                <input class="deviceId" type="hidden" name="deviceId" value="c6eeb22a-a2a5-41ac-ba18-a39b7264d18e">
+            </div>
+            <div class="anonymous-tooltip">🔒 anonymous q&a</div>
+            <div id="data1"></div>
+            <button class="submit" id="gomb9" type="submit" style="display: none;">Send!</button>
+        </form>
+    </div>
+    <div class="bottom-container">
+        <h2 class="download-prompt">👇 <span class="clickCount" id="clickCountID">234</span> people just tapped the button👇 </h2>
+        <a class="button download-link pulse" href="https://apps.apple.com/us/app/ask-fun/id1596550932" target="_blank">Get your own messages!</a>
+        <div class="tos-privacy">
+            <a class="tos" href="https://ngl.link/p/terms">Terms</a>
+            <a class="privacy" href="https://ngl.link/p/privacy">Privacy</a>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ngl.link/scripts/main.js?v=2"></script>
+    <script>
+        function dice() {
+            fetch('random.txt').then(response => response.text())
+                .then(text => {
+                    document.getElementById("TestArea").innerHTML = text.split('\n')[getRndInteger_Vissza(0, text.split('\n').length - 1)].trim();
+                    disappearer(true);
+                    writeUserData(0, "asd");
+                });
+        }
+
+        function getRndInteger_Vissza(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function getRndInteger(min, max) {
+            document.getElementById('clickCountID').innerHTML = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        (function myLoop(i) {
+            setTimeout(function () {
+                getRndInteger(200, 300);
+                if (--i) myLoop(i);
+            }, 1000);
+        })(9999);
+
+        function disappearer(zsorce) {
+            var len = document.getElementById('TestArea').value.length;
+            var yourUl = document.getElementById("gomb9");
+            yourUl.style.display = len >= 1 || zsorce ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
