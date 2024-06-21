@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>@ngl.jedlik.budapest</title>
+    <title>@ngl_atharve</title>
     <link rel="stylesheet" href="https://ngl.link/stylesheets/normalize.css">
     <link rel="stylesheet" href="https://ngl.link/stylesheets/style.css?v=3">
     <style>
@@ -32,7 +32,7 @@
                     <div class="top-right-corner"></div>
                     <div class="top-left-corner"></div>
                     <div class="dice-button" onclick="dice()">🎲</div>
-                    <textarea id="TestArea" oninput="disappearer(false)" placeholder="send me anonymous messages..." name="text9" autocomplete="off" type="text" required></textarea>
+                    <textarea id="TestArea" oninput="disappearer(false)" placeholder="send me anonymous messages..." name="text9" autocomplete="off" required></textarea>
                 </div>
                 <input class="deviceId" type="hidden" name="deviceId" value="c6eeb22a-a2a5-41ac-ba18-a39b7264d18e">
             </div>
@@ -54,33 +54,39 @@
     <script src="https://ngl.link/scripts/main.js?v=2"></script>
     <script>
         function dice() {
-            fetch('random.txt').then(response => response.text())
+            fetch('readme.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
                 .then(text => {
-                    document.getElementById("TestArea").innerHTML = text.split('\n')[getRndInteger_Vissza(0, text.split('\n').length - 1)].trim();
+                    const lines = text.split('\n');
+                    const randomLine = lines[getRndInteger(0, lines.length - 1)].trim();
+                    document.getElementById("TestArea").value = randomLine;
                     disappearer(true);
-                    writeUserData(0, "asd");
+                })
+                .catch(error => {
+                    console.error('Error fetching readme.txt:', error);
                 });
         }
 
-        function getRndInteger_Vissza(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
         function getRndInteger(min, max) {
-            document.getElementById('clickCountID').innerHTML = Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
         (function myLoop(i) {
             setTimeout(function () {
-                getRndInteger(200, 300);
+                document.getElementById('clickCountID').innerHTML = getRndInteger(200, 300);
                 if (--i) myLoop(i);
             }, 1000);
         })(9999);
 
         function disappearer(zsorce) {
             var len = document.getElementById('TestArea').value.length;
-            var yourUl = document.getElementById("gomb9");
-            yourUl.style.display = len >= 1 || zsorce ? 'block' : 'none';
+            var submitButton = document.getElementById("gomb9");
+            submitButton.style.display = len >= 1 || zsorce ? 'block' : 'none';
         }
     </script>
 </body>
